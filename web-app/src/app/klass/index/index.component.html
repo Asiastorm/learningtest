@@ -1,0 +1,19 @@
+<a routerLink="./add">新增班级</a>
+<form (ngSubmit)="onQuery()">
+  <label>名称：<input type="text" name="params.name" [(ngModel)]="params.name"/></label>
+  <button>查询</button>
+</form>
+<table>
+  <tr>
+    <th>序号</th>
+    <th>班级</th>
+    <th>班主任</th>
+    <th>操作</th>
+  </tr>
+  <tr *ngFor="let klass of klasses; index as i">
+    <td>{{i + 1}}</td>
+    <td>{{klass.name}}</td>
+    <td>{{klass.teacher.name}}</td>
+    <td><a [routerLink]="['./edit',klass.id]">编辑</a><button (click)="onDelete(klass.id)">删除</button></td>
+  </tr>
+</table>

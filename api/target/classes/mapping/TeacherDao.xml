@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.Dao.TeacherDao">
+    <resultMap id="BaseResultMap" type="com.huawei.Dao.model.Teacher">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="TINYINT" property="sex"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+    </resultMap>
+    <select id="getAllTeacher" resultMap="BaseResultMap">
+        select id, name, sex, username, email, create_time, update_time from teacher
+    </select>
+    <select id="getTeacherById" resultType="com.huawei.Dao.model.Teacher" resultMap="BaseResultMap">
+        select id, name, sex, username, email, create_time, update_time from teacher where id=#{id}
+    </select>
+    <insert id="insertTeacher" parameterType="com.huawei.Dao.model.Teacher">
+        insert into `teacher`(name, sex, username, email, create_time, update_time) values(#{name},#{sex},#{username},#{email},#{createTime},#{updateTime})
+    </insert>
+    <update id="updateTeacher">
+        update `teacher` set name=#{teacher.name}, sex=#{teacher.sex}, username=#{teacher.username}, email=#{teacher.email}, update_time=#{teacher.updateTime} where id=#{id}
+    </update>
+    <delete id="deleteTeacher">
+        delete from `teacher` where id=#{id}
+    </delete>
+
+</mapper>

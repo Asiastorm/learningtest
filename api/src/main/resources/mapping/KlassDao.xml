@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.Dao.KlassDao">
+  <resultMap id="BaseResultMap" type="com.huawei.Dao.model.Klass">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <association property="teacher" javaType="com.huawei.Dao.model.Teacher">
+      <id column="tid" jdbcType="BIGINT" property="id" />
+      <result column="tname" jdbcType="VARCHAR" property="name" />
+      <result column="sex" jdbcType="TINYINT" property="sex" />
+      <result column="username" jdbcType="VARCHAR" property="username" />
+      <result column="email" jdbcType="VARCHAR" property="email" />
+      <result column="create_time" jdbcType="BIGINT" property="createTime" />
+      <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, teacher_id, `name`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from klass
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from klass
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.huawei.Dao.model.Klass" useGeneratedKeys="true">
+    insert into klass (teacher_id, `name`)
+    values (#{pojo.teacher.id},#{pojo.name})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.huawei.Dao.model.Klass" useGeneratedKeys="true">
+    insert into klass
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huawei.Dao.model.Klass">
+    update klass
+    <set>
+      <if test="teacherId != null">
+        teacher_id = #{teacher.id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huawei.Dao.model.Klass">
+    update klass
+    set teacher_id = #{pojo.teacher.id,jdbcType=BIGINT},
+      `name` = #{pojo.name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getAllKlass" resultMap="BaseResultMap">
+    select
+    id,name,teacher_id
+    from klass
+  </select>
+  <select id="getKlassByName" resultMap="BaseResultMap" parameterType="String">
+    SELECT
+	k.`id`,
+	k.`name`,
+	t.`id` tid,
+	t.`name` tname,
+	t.`sex`,
+	t.`username`,
+	t.`email`,
+	t.`create_time`,
+	t.`update_time`
+    FROM
+	klass k
+	INNER JOIN teacher t ON k.teacher_id = t.id
+    where k.`name` like '%${name}%'
+  </select>
+  <select id="getKlassById" resultMap="BaseResultMap" parameterType="Long">
+    SELECT
+	k.`id`,
+	k.`name`,
+	t.`id` tid,
+	t.`name` tname,
+	t.`sex`,
+	t.`username`,
+	t.`email`,
+	t.`create_time`,
+	t.`update_time`
+    FROM
+	klass k
+	INNER JOIN teacher t ON k.teacher_id = t.id
+    where k.`id` = #{id}
+  </select>
+</mapper>

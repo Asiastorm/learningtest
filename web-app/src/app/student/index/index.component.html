@@ -1,0 +1,18 @@
+<a routerLink="./add">新增学生</a>
+<table>
+  <tr>
+    <th>班级</th>
+    <th>序号</th>
+    <th>姓名</th>
+    <th>学号</th>
+    <th>操作</th>
+
+  </tr>
+  <tr *ngFor="let student of students; index as i">
+    <td>{{student.klassId}}</td>
+    <td>{{i + 1}}</td>
+    <td>{{student.name}}</td>
+    <td>{{student.sno}}</td>
+  </tr>
+</table>
+

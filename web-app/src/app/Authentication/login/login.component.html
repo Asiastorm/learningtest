@@ -1,0 +1,22 @@
+<div class="row justify-content-center">
+  <div class="col-4">
+    <form [formGroup]="formGroup" >
+      <div class="form-group">
+        <label for="username">用户名</label>
+        <input class="form-control" id="username" placeholder="输入用户名" formControlName="username">
+        <small id="usernameHelp" class="form-text text-muted">系统对您提交的用户信息严格保密</small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" class="form-control" id="password" placeholder="密码" formControlName="password">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">请确认信息</label>
+      </div>
+      <button class="btn btn-primary" (click)="login()">登录</button>
+      <button class="btn btn-primary" (click)="register()">注册</button>
+    </form>
+  </div>
+</div>

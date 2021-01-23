@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.Dao.StudentDao">
+    <resultMap id="BaseResultMap" type="com.huawei.Dao.model.Student">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="student_id" jdbcType="BIGINT" property="studentId"/>
+        <result column="klass_id" jdbcType="BIGINT" property="klassId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, student_id, klass_id, `name`
+    </sql>
+    <select id="getStudentBySno" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        where student_id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="getAllStudent" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        order by student_id
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from student
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.huawei.Dao.model.Student"
+            useGeneratedKeys="true">
+    insert into student (student_id, klass_id, `name`
+      )
+    values (#{studentId,jdbcType=BIGINT}, #{klassId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.huawei.Dao.model.Student"
+            useGeneratedKeys="true">
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="klassId != null">
+                klass_id,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">
+                #{studentId,jdbcType=BIGINT},
+            </if>
+            <if test="klassId != null">
+                #{klassId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.huawei.Dao.model.Student">
+        update student
+        <set>
+            <if test="studentId != null">
+                student_id = #{studentId,jdbcType=BIGINT},
+            </if>
+            <if test="klassId != null">
+                klass_id = #{klassId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.huawei.Dao.model.Student">
+    update student
+    set student_id = #{studentId,jdbcType=BIGINT},
+      klass_id = #{klassId,jdbcType=BIGINT},
+      `name` = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

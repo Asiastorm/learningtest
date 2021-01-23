@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "token-allow-list",
+      "type": "com.huawei.config.TokenValidFilterConfig",
+      "sourceType": "com.huawei.config.TokenValidFilterConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "token-allow-list.url",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.huawei.config.TokenValidFilterConfig"
+    }
+  ],
+  "hints": []
+}

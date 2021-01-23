@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.Dao.UserinfoDao">
+    <sql id="all_column">
+      `username`,
+      `password`,
+      `role`,
+      `name`
+  </sql>
+    <sql id="column_name">
+        `t_user_info`
+    </sql>
+    <select id="queryUserinfo" resultType="com.huawei.Dao.UserInfoDo">
+        SELECT
+        <include refid="all_column"></include>
+        FROM
+        <include refid="column_name"></include>
+        WHERE username = #{pojo.username}
+        AND password = #{pojo.password}
+    </select>
+</mapper>
